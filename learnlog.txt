@@ -1,6 +1,10 @@
 -Don't know react at all, googled "React Tutorials", selected the tutorial from react's website
 -created new github repo
--Error: refusing to merge unrelated histories: Googled error and pasted "git pull origin master --allow-unrelated-histories"
+-Error: refusing to merge unrelated histories: 
+    -Googled error and pasted "git pull origin master --allow-unrelated-histories"
+-Ran into issues with visual studio code asking me for git credentials anytime I tried to hit remote repo
+    - googled "visual studio code keeps asking for git credentials"
+    -ended up installing git credential manager for windows: https://github.com/Microsoft/Git-Credential-Manager-for-Windows/
 
 
 
