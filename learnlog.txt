@@ -1,0 +1,23 @@
+-Don't know react at all, googled "React Tutorials", selected the tutorial from react's website
+-created new github repo
+-Error: refusing to merge unrelated histories: Googled error and pasted "git pull origin master --allow-unrelated-histories"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
