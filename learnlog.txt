@@ -5,6 +5,8 @@
 -Ran into issues with visual studio code asking me for git credentials anytime I tried to hit remote repo
     - googled "visual studio code keeps asking for git credentials"
     -ended up installing git credential manager for windows: https://github.com/Microsoft/Git-Credential-Manager-for-Windows/
+-installed the react dev tools add-on for chrome, very cool!
+-after spending some time going through the classic tutorial I searched for "react display data from api call" as this is my actual goal
 
 
 
