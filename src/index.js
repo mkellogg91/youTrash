@@ -55,7 +55,8 @@ import './index.css';
             .then(results =>{
                 results.json().then(jsonResults => {
                     console.log('here is my json ', jsonResults);
-                    this.state.favoritesId = jsonResults.items[0].contentDetails.relatedPlaylists.favorites;
+                    this.setState({token: this.state.token, favoritesId: jsonResults.items[0].contentDetails.relatedPlaylists.favorites})
+                    console.log('the state ', this.state);
                 })
             })
         }
