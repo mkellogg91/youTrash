@@ -12,7 +12,7 @@ import './index.css';
 
             this.state = {
                 token: '',
-                favoritesId: ''
+                likesId: ''
             }
 
             let locationParams = window.location.hash ?  window.location.hash.split('&') : [];
@@ -50,13 +50,17 @@ import './index.css';
             console.log('props available ', this.state);
 
             let getChannelIdUrl = 'https://www.googleapis.com/youtube/v3/channels?part=contentDetails&mine=true&access_token=' + this.state.token;
+            let getLikeChannelInfoUrl;
 
+            // gets the likes channel id
             fetch(getChannelIdUrl)
             .then(results =>{
                 results.json().then(jsonResults => {
                     console.log('here is my json ', jsonResults);
-                    this.setState({token: this.state.token, favoritesId: jsonResults.items[0].contentDetails.relatedPlaylists.favorites})
+                    this.setState({token: this.state.token, likesId: jsonResults.items[0].contentDetails.relatedPlaylists.likes})
                     console.log('the state ', this.state);
+                    getLikeChannelInfoUrl = 'https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails, id, snippet, status&maxResults=50&playlistId=' + this.state.likesId +  '&access_token=' + this.state.token;
+                    this.getPlaylistItems(getLikeChannelInfoUrl);
                 })
             })
         }
@@ -84,6 +88,18 @@ import './index.css';
             );
         }
 
+        getPlaylistItems(getPlayListItemsUrl){
+            console.log('my test function after api calls! ', getPlayListItemsUrl);
+            fetch(getPlayListItemsUrl)
+            .then(results => {
+                results.json()
+                .then(jsonResults =>{
+                    this.setState({token: this.state.token, likesId: this.state.likesId, playlistItems: jsonResults});
+                    console.log('here are my video results: ', jsonResults);
+                    console.log('state items: ', this.state);
+                })
+            })
+        }
        
 
     }
