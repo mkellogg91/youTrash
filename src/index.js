@@ -71,8 +71,6 @@ import './index.css';
             console.log('1st to run after constructor');
 
             
-            
-
             // display
             return (
                 <div>
