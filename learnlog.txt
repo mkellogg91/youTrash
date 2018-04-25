@@ -9,8 +9,23 @@
 -after spending some time going through the classic tutorial I searched for "react display data from api call" as this is my actual goal
 -got a simple project up and running with some basic life-cycle hooks that allow me to start inserting logic
 
+-a lot of really rough searching through youtube api documentation here in order to:
+    -be able to access apis
+    -determine which apis I need to hit to get what I want (watch history)
+
 -After spending quite a few hours searching through google's devloper docs on youtube api's, I find out that its no longer possible to
-access user's watch history information via apis here: https://stackoverflow.com/questions/46987690/tracking-youtube-watch-history
+access user's watch history information via apis here: https://stackoverflow.com/questions/46987690/tracking-youtube-watch-history this 
+article also contains links to youtube's release notes stating that this is depracated
+
+-I decided to audible and instead pull data from the user's liked vidoes
+
+-spent a little time mapping results from video call into an array so I could gather the properties I wanted to display
+
+-didn't know how to pass data from one component to another, googled and found easily on so
+
+-created a separate component because I need to be able to dynamically create some component for each row of the table
+
+-looked up how to dynamically create components for data in react
 
 
 
