@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Moment from 'moment';
 
   
     const yUrl = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=253124237581-mjnl8jd7bdrvc57sendkadmvqkgr1r9q.apps.googleusercontent.com&redirect_uri=http://localhost:3000&response_type=token&scope=https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtubepartner https://www.googleapis.com/auth/yt-analytics.readonly&state=state_parameter_passthrough_value'
@@ -36,7 +37,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
                 // check if token is valid. if it fails redirect to authorization page
                 fetch(verUrl + this.state.token)
                     .then(response =>{
-                        console.log('went into the token validator then, response: ', response);
+                        
                         if(!response.ok){
                             window.location.replace(yUrl);
                         }
@@ -50,8 +51,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
         }
 
         componentDidMount(){
-            console.log('right before api call');
-            console.log('props available ', this.state);
 
             let getChannelIdUrl = 'https://www.googleapis.com/youtube/v3/channels?part=contentDetails&mine=true&access_token=' + this.state.token;
             let getLikeChannelInfoUrl;
@@ -60,9 +59,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
             fetch(getChannelIdUrl)
             .then(results =>{
                 results.json().then(jsonResults => {
-                    console.log('here is my json ', jsonResults);
                     this.setState({token: this.state.token, likesId: jsonResults.items[0].contentDetails.relatedPlaylists.likes})
-                    console.log('the state ', this.state);
                     getLikeChannelInfoUrl = 'https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails, id, snippet, status&maxResults=50&playlistId=' + this.state.likesId +  '&access_token=' + this.state.token;
                     this.getPlaylistItems(getLikeChannelInfoUrl);
                 })
@@ -71,23 +68,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
         render() {
             
-            // Project entry for code here:
-            console.log('1st to run after constructor');
-
-            
             // display
             return (
                 <div>
-                    <div className="jumbotron text-center">
+                    <div className="jumbotron text-center shadow-lg">
                         <h1>Welcome To YouTrash</h1>
-                        <div>a tool for viewing YouTube statistics</div>
+                        <div>a tool for viewing recent video likes on YouTube</div>
                     </div>
                     <div className="row">
-                        <div className="col-2"></div>
-                        <div className="col-8">
+                        <div className="col-1"></div>
+                        <div className="col-10" align="center">
                             <StatTable tableData={this.state.playlistItems} />
                         </div>
-                        <div className="col-2"></div>
+                        <div className="col-1"></div>
                     </div>
                 </div>
                 
@@ -96,7 +89,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
         // gets info on the videos in the liked playlist
         getPlaylistItems(getPlayListItemsUrl){
-            console.log('my test function after api calls! ', getPlayListItemsUrl);
             fetch(getPlayListItemsUrl)
             .then(results => {
                 results.json()
@@ -107,21 +99,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
                             title: item.snippet.title,
                             videoId: item.contentDetails.videoId,
                             videoPublishedDate: item.contentDetails.videoPublishedAt,
-                            channelId: item.snippet.channelId,
                             channelTitle: item.snippet.channelTitle,
                             description: item.snippet.description,
                             likedOnDate: item.snippet.publishedAt,
                             thumbnailUrl: item.snippet.thumbnails.default.url,
-                            status: item.status.privacyStatus
+                            status: item.status.privacyStatus,
+                            channelId: item.snippet.channelId,
                         };
                     });
-
-                    console.log('here is mapped results ', mappedResults);
                     
                     this.setState({token: this.state.token, likesId: this.state.likesId, playlistItems: mappedResults});
-                    
-                    
-                    console.log('state items: ', this.state);
+                  
                 })
             })
         }
@@ -131,27 +119,45 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
     class StatTable extends React.Component{
         render(){
-            
-            console.log('in stat table props: ', this.props);
 
             // logic here
-            var tableData = this.props ? this.props : [] ;
-            
-
+            var tableData = this.props.tableData || [];
 
             // display
             return(
+               
                 <div>
-                    {
-                        // tableData.map(item => {
-                        //     return(
-                        //         <div className="row">
-                                    
-                        //         </div>
-                        //     )
-                        // })
-                    }
-                   
+                    <table className="table-bordered table-striped">
+                        <thead>
+                            <tr className="text-center">
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Liked On</th>
+                                <th>Published On</th>
+                                <th>Video ID</th>
+                                <th>Channel ID</th>
+                                <th>Thumbnail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            tableData.map((el, i) => 
+                            <tr key={i}>
+                                <td className="p-2"> {el.title} </td>
+                                <td className="p-2"> {el.status} </td>
+                                <td className="p-2"> {Moment(el.likedOnDate).format('DD/MM/YYYY')} </td>
+                                <td className="p-2"> {Moment(el.videoPublishedDate).format('DD/MM/YYYY')} </td>
+                                <td className="p-2"> {el.videoId} </td>
+                                <td className="p-2"> {el.channelId} </td>
+                                <td className="p-2">
+                                    <img src={el.thumbnailUrl} className="rounded"  alt="thumbnail" />
+                                </td>
+                            </tr>
+                            )
+                        }
+                        </tbody>
+                    </table>
+                    <br/><br/><br />
                 </div>
             );
            
