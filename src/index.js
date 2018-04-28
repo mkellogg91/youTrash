@@ -93,18 +93,19 @@ import Moment from 'moment';
             .then(results => {
                 results.json()
                 .then(jsonResults =>{
-                    
                     let mappedResults = jsonResults.items.map(item =>{
                         return {
-                            title: item.snippet.title,
-                            videoId: item.contentDetails.videoId,
-                            videoPublishedDate: item.contentDetails.videoPublishedAt,
-                            channelTitle: item.snippet.channelTitle,
-                            description: item.snippet.description,
-                            likedOnDate: item.snippet.publishedAt,
-                            thumbnailUrl: item.snippet.thumbnails.default.url,
-                            status: item.status.privacyStatus,
-                            channelId: item.snippet.channelId,
+                            title: item.snippet.title ? item.snippet.title : '',
+                            videoId: item.contentDetails.videoId ? item.contentDetails.videoId : '',
+                            videoPublishedDate: item.contentDetails.videoPublishedAt ? item.contentDetails.videoPublishedAt : '' ,
+                            channelTitle: item.snippet.channelTitle ? item.snippet.channelTitle : '',
+                            description: item.snippet.description ? item.snippet.description : '',
+                            likedOnDate: item.snippet.publishedAt ? item.snippet.publishedAt : '',
+                            thumbnailUrl: item.snippet.thumbnails.default.url ? item.snippet.thumbnails.default.url : '',
+                            status: item.status.privacyStatus ? item.status.privacyStatus : '',
+                            channelId: item.snippet.channelId ? item.snippet.channelId : '',
+                            playListId: item.snippet.playlistId ? item.snippet.playlistId : '',
+
                         };
                     });
                     
@@ -118,10 +119,20 @@ import Moment from 'moment';
     }
 
     class StatTable extends React.Component{
+        
+        imgClickHandler(item){
+            if(item.playListId && item.videoId){
+                window.open('https://www.youtube.com/watch?v=' + item.videoId + '&list=' + item.playListId);
+            }
+           
+        }
+        
         render(){
 
             // logic here
             var tableData = this.props.tableData || [];
+           
+           
 
             // display
             return(
@@ -143,14 +154,14 @@ import Moment from 'moment';
                         {
                             tableData.map((el, i) => 
                             <tr key={i}>
-                                <td className="p-2"> {el.title} </td>
-                                <td className="p-2"> {el.status} </td>
-                                <td className="p-2"> {Moment(el.likedOnDate).format('DD/MM/YYYY')} </td>
-                                <td className="p-2"> {Moment(el.videoPublishedDate).format('DD/MM/YYYY')} </td>
-                                <td className="p-2"> {el.videoId} </td>
-                                <td className="p-2"> {el.channelId} </td>
+                                <td className="p-2"> {el.title ? el.title : ''} </td>
+                                <td className="p-2"> {el.status? el.status : ''} </td>
+                                <td className="p-2"> {el.likedOnDate ? Moment(el.likedOnDate).format('DD/MM/YYYY') : ''} </td>
+                                <td className="p-2"> {el.videoPublishedDate ? Moment(el.videoPublishedDate).format('DD/MM/YYYY') : ''} </td>
+                                <td className="p-2"> {el.videoId ? el.videoId : ''} </td>
+                                <td className="p-2"> {el.channelId ? el.channelId : ''} </td>
                                 <td className="p-2">
-                                    <img src={el.thumbnailUrl} className="rounded"  alt="thumbnail" />
+                                    <img src={el.thumbnailUrl ? el.thumbnailUrl: ''} className="rounded"  alt="thumbnail" onClick={()=>this.imgClickHandler(el)} />
                                 </td>
                             </tr>
                             )
