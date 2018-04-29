@@ -13,7 +13,9 @@ Instead I switched the app to pull data from the user's liked videos.
 **Warnings and Dependencies:**
 
 -This app requires the user to have a youtube account that is linked to their google account
+
 -This app has to run on localhost:3000 as youtube's api's attempt to redirect the page back to "localhost:3000" after authorization is complete
+
 -In order to have the best experience the user should have an account with some liked videos on youtube, it will work otherwise but probably looks bad
 
 -Warning: if you don't want anyone to see what videos you have liked on youtube do not run this app with others around
@@ -21,6 +23,7 @@ Instead I switched the app to pull data from the user's liked videos.
 **How To Run the App:**
 
 -git clone the repo
+
 -make sure you have node.js and react.js packages from npm
 
 -do "npm start"
