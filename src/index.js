@@ -98,17 +98,16 @@ import Moment from 'moment';
                 .then(jsonResults =>{
                     let mappedResults = jsonResults.items.map(item =>{
                         return {
-                            title: item.snippet.title ? item.snippet.title : '',
-                            videoId: item.contentDetails.videoId ? item.contentDetails.videoId : '',
-                            videoPublishedDate: item.contentDetails.videoPublishedAt ? item.contentDetails.videoPublishedAt : '' ,
-                            channelTitle: item.snippet.channelTitle ? item.snippet.channelTitle : '',
-                            description: item.snippet.description ? item.snippet.description : '',
-                            likedOnDate: item.snippet.publishedAt ? item.snippet.publishedAt : '',
-                            thumbnailUrl: item.snippet.thumbnails && item.snippet.thumbnails.default ? item.snippet.thumbnails.default.url : '',
-                            status: item.status.privacyStatus ? item.status.privacyStatus : '',
-                            channelId: item.snippet.channelId ? item.snippet.channelId : '',
-                            playListId: item.snippet.playlistId ? item.snippet.playlistId : '',
-
+                            title: item.snippet && item.snippet.title ? item.snippet.title : '',
+                            videoId: item.contentDetails && item.contentDetails.videoId ? item.contentDetails.videoId : '',
+                            videoPublishedDate: item.contentDetails && item.contentDetails.videoPublishedAt ? item.contentDetails.videoPublishedAt : '' ,
+                            channelTitle: item.snippet && item.snippet.channelTitle ? item.snippet.channelTitle : '',
+                            description: item.snippet && item.snippet.description ? item.snippet.description : '',
+                            likedOnDate: item.snippet && item.snippet.publishedAt ? item.snippet.publishedAt : '',
+                            thumbnailUrl: item.snippet && item.snippet.thumbnails && item.snippet.thumbnails.default ? item.snippet.thumbnails.default.url : '',
+                            status: item.status && item.status.privacyStatus ? item.status.privacyStatus : '',
+                            channelId: item.snippet && item.snippet.channelId ? item.snippet.channelId : '',
+                            playListId: item.snippet && item.snippet.playlistId ? item.snippet.playlistId : '',
                         };
                     });
                     
