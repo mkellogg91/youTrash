@@ -27,7 +27,11 @@ article also contains links to youtube's release notes stating that this is depr
 
 -looked up how to dynamically create components for data in react
 
+-got dynamic elements working
 
+-styled everything using bootstrap, thank God for bootstrap
+
+-fixed bugs including one "object of undefined" error on thumbnail object. this error would occur when a liked video has since been deleted and the thumbnail no longer existed
 
 
 
