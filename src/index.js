@@ -82,6 +82,9 @@ import Moment from 'moment';
                         </div>
                         <div className="col-1"></div>
                     </div>
+                    <div className="jumbotron text-center">
+                        <h5>Thanks For Visiting, Do Come Again!</h5>
+                    </div>
                 </div>
                 
             );
@@ -101,7 +104,7 @@ import Moment from 'moment';
                             channelTitle: item.snippet.channelTitle ? item.snippet.channelTitle : '',
                             description: item.snippet.description ? item.snippet.description : '',
                             likedOnDate: item.snippet.publishedAt ? item.snippet.publishedAt : '',
-                            thumbnailUrl: item.snippet.thumbnails.default.url ? item.snippet.thumbnails.default.url : '',
+                            thumbnailUrl: item.snippet.thumbnails && item.snippet.thumbnails.default ? item.snippet.thumbnails.default.url : '',
                             status: item.status.privacyStatus ? item.status.privacyStatus : '',
                             channelId: item.snippet.channelId ? item.snippet.channelId : '',
                             playListId: item.snippet.playlistId ? item.snippet.playlistId : '',
