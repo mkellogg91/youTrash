@@ -82,7 +82,7 @@ import Moment from 'moment';
                         </div>
                         <div className="col-1"></div>
                     </div>
-                    <div className="jumbotron text-center">
+                    <div className="jumbotron text-center shadow-lg">
                         <h5>Thanks For Visiting, Do Come Again!</h5>
                     </div>
                 </div>
